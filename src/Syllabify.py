@@ -189,7 +189,7 @@ class Syllabifier:
             self.X_train, self.X_dev, self.Y_train, self.Y_dev,\
                 self.train_tokens, self.dev_tokens = \
                 train_test_split(self.X_train, self.Y_train,\
-                    self.train_tokens, test_size=test_prop, random_state=4767)
+                    self.train_tokens, test_size=dev_prop, random_state=4767)
 
 
     def build_model(self):
