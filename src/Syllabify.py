@@ -94,7 +94,7 @@ class Syllabifier:
             data = utils.load_data(inp, max_nb = max_nb)
 
         tokens, segmentations = [], []
-        for token in data[:200]:
+        for token in data:
             chars, labels = [], []
             for idx, char in enumerate(token):
                 if char != '-':
