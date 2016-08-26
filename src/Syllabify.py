@@ -215,6 +215,15 @@ class Syllabifier:
             else:
                 curr_input = curr_enc_out
 
+            # following block only runs on TF, bug in Theano?
+            curr_enc_out = Bidirectional(LSTM(output_dim=self.nb_dims,
+                                              return_sequences=True,
+                                              activation='tanh',
+                                              name='enc_lstm_'+str(i + 1)),
+                                         merge_mode='sum')(curr_input)
+            """
+            
+            #old, buggy version > now using bidirectional wrapper
             l2r = LSTM(output_dim=self.nb_dims,
                        return_sequences=True,
                        activation='tanh',
@@ -225,6 +234,8 @@ class Syllabifier:
                        go_backwards=True,
                        name='right_enc_lstm_'+str(i + 1))(curr_input)
             curr_enc_out = merge([l2r, r2l], name='encoder_'+str(i+1), mode='sum')
+            """
+
 
         dense = TimeDistributed(Dense(3), name='dense')(curr_enc_out)
         segm_out = Activation('softmax', name='out')(dense)
